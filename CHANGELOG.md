@@ -7,6 +7,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions: [Sem
 
 ### Contributors
 
+- The lint tooling pins `katex` to 0.18.2 or later through an npm `overrides` entry; markdownlint
+  pulls it in transitively at a version with a known advisory. Nothing changes in the prompt.
 - CI lints the Markdown with markdownlint-cli2 (`npm run lint`, also the agent stop hook);
   the few findings (missing blank lines before lists, trailing newlines, a code block language)
   are fixed. Nothing changes in the prompt's instructions.
