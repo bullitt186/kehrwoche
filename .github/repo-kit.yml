@@ -1,8 +1,10 @@
 # repo-kit settings for PR hygiene (all optional). See https://github.com/bullitt186/repo-kit
 # test_paths:          # globs of test files, replaces the defaults
 #   - tests/**
-# exempt_paths:        # globs that are not code, added to the defaults
-#   - examples/**
+exempt_paths:          # not code: the Markdown lint tooling of this Markdown-only repository
+  - .markdownlint-cli2.jsonc
+  - package.json
+  - package-lock.json
 # changelog: CHANGELOG.md   # or "none"
 ci_exceptions:         # Markdown only, no code (AGENTS.md, Rules specific to this repository)
   - "tests: no code, the repository is a Markdown prompt"

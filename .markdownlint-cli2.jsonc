@@ -1,0 +1,16 @@
+// Markdown lint (repo-kit CI standard, category 2): npx markdownlint-cli2@0.24.1
+{
+  "config": {
+    "default": true,
+    // Prose is not hard-wrapped here: the prompt and the references are read by language
+    // models and edited as paragraphs, so a line-length limit would only add noise.
+    "MD013": false,
+    // Tables use the compact `|a|b|` style throughout; aligning columns would rewrite every
+    // table for no gain in the rendered output.
+    "MD060": false
+  },
+  "globs": ["**/*.md"],
+  // Managed by repo-kit (not edited here): the pull request template starts with its sections,
+  // and CLAUDE.md is a single import line for Claude Code.
+  "ignores": ["node_modules/**", ".github/pull_request_template.md", "CLAUDE.md"]
+}

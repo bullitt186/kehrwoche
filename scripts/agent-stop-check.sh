@@ -6,7 +6,7 @@ cd "$(git rev-parse --show-toplevel)" || exit 0
 [ -z "$(git status --porcelain)" ] && exit 0
 
 # The repository's fast check (lint, format check, type check, unit tests), as in AGENTS.md.
-FAST_CHECK="true"  # Markdown only, no code to check; PR hygiene checks links in CI
+FAST_CHECK="npm run --silent lint"  # Markdown lint (.markdownlint-cli2.jsonc); run npm ci once
 
 if ! out=$(bash -c "$FAST_CHECK" 2>&1); then
   printf 'Fast check failed. Fix it before stopping:\n%s\n' "$(printf '%s' "$out" | tail -40)" >&2
