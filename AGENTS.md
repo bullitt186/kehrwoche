@@ -159,8 +159,8 @@ skills. See `README.md`.
 
 | Task | Command |
 |---|---|
-| Install / set up | nothing to install; the repository is Markdown only |
-| Fast check (before every commit, also the stop hook) | none beyond `git diff --check` (no code; Markdown lint: #1); PR hygiene checks relative links in CI |
+| Install / set up | Node.js LTS and `npm ci` (installs the Markdown linter; the repository itself is Markdown only) |
+| Fast check (before every commit, also the stop hook) | `npm run lint` (markdownlint-cli2, rules in `.markdownlint-cli2.jsonc`) and `git diff --check`; PR hygiene checks relative links in CI |
 | Full check | same as the fast check |
 | Mutation testing of changed code | not applicable: no code |
 
