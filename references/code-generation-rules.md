@@ -1,7 +1,7 @@
 # Code Generation Rules
 
 **When to read this:** the current step involves generating client code, wrapper functions, or SDK bindings from a spec (API schema, interface definition, database schema, etc.).
-**Topics:** code generation, naming conventions, type mapping, error handling, idempotency
+**Topics:** code generation, naming conventions, type mapping, error handling, idempotency, scope discipline, terse documentation
 
 ---
 
@@ -28,10 +28,17 @@
 - Generated methods for operations marked idempotent in the spec must accept and forward an idempotency key parameter if the underlying API supports one.
 - Do not add client-side retry logic unless explicitly requested — that is a caller concern, not a codegen concern, unless the spec marks the operation safe-to-retry by default.
 
+## Scope discipline (YAGNI)
+
+- Generate exactly what the spec defines — no speculative convenience wrappers, unused overloads, or parameters for API versions the spec doesn't describe.
+- Do not add configuration flags, feature toggles, or extensibility hooks for scenarios the spec doesn't require. If the spec doesn't call for it, the generated code shouldn't carry it.
+- Do not scaffold caching, batching, or pagination helpers unless the spec explicitly defines that behavior — these stay caller concerns until the spec says otherwise.
+
 ## Output structure
 
 - One generated file per logical resource/entity in the spec, not one giant file — unless the target ecosystem's convention is a single-file client (check existing project structure first).
 - Generated code must include minimal inline documentation only for non-obvious constraints (units, valid ranges, side effects) — do not restate the method name in prose.
+- No filler in generated comments or docstrings ("this method allows you to...", "in order to...") — state the constraint or behavior directly, one line if possible.
 
 ## Validation before finalizing
 

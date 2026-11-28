@@ -11,6 +11,8 @@ List every skill directory found. For each, report: name, description length (to
 - A body over 500 lines
 - Reference files that duplicate content already in the body
 - A description that reads like a feature list rather than a trigger condition
+- Body content addressing hypothetical or future scenarios with no evidence the skill's actual use ever hits them (YAGNI candidates)
+- Body prose that is verbose, hedging, or jargon-heavy where a terser rewrite would lose no information (Caveman candidates)
 
 ## Step 1: Description (routing layer) optimization
 
@@ -22,14 +24,17 @@ For each skill's YAML frontmatter `description`:
 
 ## Step 2: Body classification and restructuring
 
-For each skill body, classify every paragraph/section into one of five types:
+For each skill body, classify every paragraph/section into one of six types:
 - **Core rule** — actionable instructions the agent must follow to complete the task correctly. Keep in SKILL.md, always loaded.
 - **Background** — rationale, explanation, "why this works." Move to `references/background.md`.
 - **Example** — illustrative code/I-O samples. Keep only the single most representative example per distinct concept; move the rest (or all, if the pattern is explained clearly in prose) to `references/examples.md`. Strip redundant near-duplicate examples.
 - **Template** — boilerplate/copy-paste scaffolding. Move to `references/templates.md` or `assets/`.
 - **Redundant** — repeated or restated content adding no new information. Delete.
+- **Speculative (YAGNI)** — content addressing hypothetical future needs, unused configuration options, "just in case" flexibility, or edge cases with no evidence the skill has ever actually hit them. Delete. Distinct from Redundant: this content can be novel and well-written — the issue isn't restatement, it's that nothing in the skill's real use justifies carrying it. Test: would deleting this leave the skill unable to handle a task it has actually been asked to do? If the honest answer is "no, but it might someday," cut it — don't hedge by keeping it "just in case."
 
 Critical exception — do not move to a reference file: **any example that is the only place a required format, schema, or behavior is actually specified.** If no core rule states the rule explicitly in prose, the example IS the specification and must stay in the always-loaded body. When in doubt, keep it in the core.
+
+**Caveman rewrite pass** — after classifying, tighten every Core rule paragraph that survives: short sentences, no filler adjectives ("robust," "comprehensive," "seamless"), no hedging ("might," "could potentially," "in most cases" when the rule is actually absolute), no throat-clearing before the instruction — state the rule, not the reason it's nice to have. This is a rewrite, not a cut: every fact, number, and threshold the original stated must still be present afterward (checked in Step 5) — only the wrapping prose gets leaner.
 
 For every content type that gets moved out of SKILL.md into a reference file, add a pointer in the body at the exact step where the agent would need it, e.g.:
 
@@ -58,6 +63,7 @@ Before finalizing each skill, compare the original body against the new core + r
 - List every operational concept, constraint, number, threshold, or API detail from the original.
 - Confirm each one still appears somewhere (core or reference) — nothing may silently disappear, only move or get deleted if it was genuinely redundant/non-actionable.
 - If you're unsure whether something was safe to cut, don't cut it — leave it in the core and flag it in your summary instead of guessing.
+- This applies equally to content cut under the Speculative/YAGNI classification in Step 2 — if there's any real chance the scenario isn't hypothetical, don't cut it; leave it in the core and flag it instead.
 
 ## Step 6: Report
 
